@@ -9,4 +9,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Redux, Firebase
 
 **Hai Na Zheng @2022**
-asd
