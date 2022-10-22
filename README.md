@@ -8,4 +8,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Redux, Firebase
 
+### `Libraries / Packages`
+
+Material UI, React Router
+
 **Hai Na Zheng @2022**
