@@ -12,4 +12,8 @@ Redux, Firebase
 
 Material UI, React Router
 
+### `Keywords`
+
+short-circuit conditioning, ternary conditioning, props, useReducer
+
 **Hai Na Zheng @2022**

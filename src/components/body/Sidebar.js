@@ -41,7 +41,7 @@ function Sidebar({ username, userTitle, visitorsNum, postViewersNum }) {
                 <div className="sidebar__groups">
                     {groups.map(group => {
                         return (
-                            <div className='sidebar__group'>
+                            <div key={group.name} className='sidebar__group'>
                                 <Diversity3Icon />
                                 <p>{group.name}</p>
                             </div>
