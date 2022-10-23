@@ -102,6 +102,8 @@ function Feed() {
 
   return (
     <div className='feed'>
+
+      {/* Create A Post */}
       <div className="feed__createPost">
         <h3>Create a post</h3>
         <form onSubmit={submitPost}>
@@ -136,7 +138,10 @@ function Feed() {
           </Button>
         </form>
       </div>
+
+      {/* Post List */}
       <div className="feed__posts">
+      <h3>Friends' Stream</h3>
         {posts.map(post => {
           return (
             <div key={post.id} className="feed__post">
@@ -171,7 +176,6 @@ function Feed() {
             </div>
           )
         })}
-
       </div>
     </div>
   )
