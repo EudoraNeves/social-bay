@@ -35,7 +35,7 @@ function Nav() {
     return (
         <div className='nav'>
             {navItems.map(item => {
-                return <NavItem Icon={item.icon} name={item.name} />
+                return <NavItem key={item.name} Icon={item.icon} name={item.name} />
             })}
             <NavItem name="Me" avatar="avatar.jpg" />
         </div>
