@@ -58,7 +58,7 @@ function reducer(state, action) {
 }
 
 function Feed() {
-  const [postDate, dispatch] = useReducer(reducer, initialPostData)
+  const [postData, dispatch] = useReducer(reducer, initialPostData)
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -79,9 +79,12 @@ function Feed() {
     e.preventDefault()
     //add my new post(const postData) to posts collection in db
     db.collection('posts').add({
-      ...postDate,
+      ...postData,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
+    //reset post's inputs' values after submitting a post
+    postData.title = ''
+    postData.content = ''
   }
 
   return (
@@ -92,7 +95,7 @@ function Feed() {
         <h3>Create a post</h3>
         <form onSubmit={submitPost}>
           {/* visibility */}
-          <select name="visibility" id="visibility" value={postDate.visibility} onChange={(e) => dispatch({
+          <select name="visibility" id="visibility" value={postData.visibility} onChange={(e) => dispatch({
             type: "visibility",
             value: e.target.value
           })}>
@@ -101,7 +104,7 @@ function Feed() {
             <option value="private">private</option>
           </select>
           {/* title */}
-          <input type="text" name="createPost__title" id="" value={postDate.title} onChange={e => {
+          <input type="text" name="createPost__title" id="" value={postData.title} onChange={e => {
             dispatch({
               type: "inputs",
               key: "title",
@@ -109,7 +112,7 @@ function Feed() {
             })
           }} placeholder='title' />
           {/* content */}
-          <textarea name="" id="" cols="30" rows="10" value={postDate.content} onChange={e => dispatch({
+          <textarea name="" id="" cols="30" rows="10" value={postData.content} onChange={e => dispatch({
             type: "inputs",
             key: "content",
             value: e.target.value

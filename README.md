@@ -5,8 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## About Social Bay
 
 ### `Techs`
-
-Redux, Firebase
+Html, Css, JavaScript, React, Redux, Firebase
 
 ### `Libraries / Packages`
 
