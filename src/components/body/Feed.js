@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useReducer } from 'react';
 import "./Feed.css"
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -10,8 +10,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import DeleteIcon from '@mui/icons-material/Delete';
+import firebase from 'firebase/compat/app';
+import { db } from '../../app/firebase';
 
-const posts = [
+const postList = [
   {
     id: 1,
     avatar: 'avatar1.jpg',
@@ -90,15 +92,31 @@ function reducer(state, action) {
 
 function Feed() {
   const [postDate, dispatch] = useReducer(reducer, initialPostData)
+  const [posts, setPosts] = useState(postList)
+
+  useEffect(() => {
+    console.log('aha')
+    //create a realtime-listener to the post collection in db
+    db.collection("posts").onSnapshot(snapshot => {
+      const posts = snapshot.docs.map(doc => ({
+        //get posts from firebase
+        id: doc.id,
+        data: doc.data(),
+      }))
+      console.log(posts)
+      setPosts(posts)
+    })
+  }, [])
 
   const submitPost = (e) => {
     e.preventDefault()
     console.log(JSON.stringify(postDate));
+    //add my new post(const postData) to posts collection in db
+    db.collection('posts').add({
+      ...postDate,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
   }
-
-  // useEffect(() => {
-  //   console.log(submitPost())
-  // }, [postDate])
 
   return (
     <div className='feed'>
@@ -107,6 +125,7 @@ function Feed() {
       <div className="feed__createPost">
         <h3>Create a post</h3>
         <form onSubmit={submitPost}>
+          {/* visibility */}
           <select name="visibility" id="visibility" value={postDate.visibility} onChange={(e) => dispatch({
             type: "visibility",
             value: e.target.value
@@ -115,6 +134,7 @@ function Feed() {
             <option value="friends only">friends only</option>
             <option value="private">private</option>
           </select>
+          {/* title */}
           <input type="text" name="createPost__title" id="" value={postDate.title} onChange={e => {
             dispatch({
               type: "inputs",
@@ -122,11 +142,13 @@ function Feed() {
               value: e.target.value
             })
           }} placeholder='title' />
+          {/* content */}
           <textarea name="" id="" cols="30" rows="10" value={postDate.content} onChange={e => dispatch({
             type: "inputs",
             key: "content",
             value: e.target.value
           })} placeholder='What do you want to talk about?'></textarea>
+          {/* attachements: photo */}
           <div className="createPost__attachments">
             <IconButton color="primary" aria-label="upload picture" component="label">
               <input hidden accept="image/*" type="file" />
@@ -141,26 +163,31 @@ function Feed() {
 
       {/* Post List */}
       <div className="feed__posts">
-      <h3>Friends' Stream</h3>
-        {posts.map(post => {
+        <h3>Friends' stream</h3>
+        {posts.map(({ id, data: { avatar, username, userTitle, likes, comments, shares, title, content } }) => {
           return (
-            <div key={post.id} className="feed__post">
+            <div key={id} className="feed__post">
+              {/* post user info */}
               <div className="feed__userInfo">
-                <Avatar src={post.avatar} className="feed__userInfo__left" />
+                <Avatar src={avatar} className="feed__userInfo__left" />
                 <div className="feed__userInfo__right">
-                  <h4>{post.username}</h4>
-                  <p>{post.userTitle}</p>
+                  <h4>{username}</h4>
+                  <p>{userTitle}</p>
                 </div>
               </div>
+              {/* post content */}
               <div className="feed__postContent">
-                <p>{post.content}</p>
+                <h5>{title}</h5>
+                <p>{content}</p>
               </div>
+              {/* post stats */}
               <div className="feed__postStats">
                 <p>
-                  {post.likes > 0 ? post.likes : ''} {post.likes > 1 ? 'likes' : post.comments == 1 ? 'likes' : ''}
-                  {post.comments > 0 ? ' - ' : ''} {post.comments > 0 ? post.comments : ''} {post.comments > 1 ? 'comments' : post.comments == 1 ? 'comment' : ''}
-                  {post.shares > 0 ? ' - ' : ''} {post.shares > 0 ? post.shares : ''} {post.shares > 1 ? 'shares' : post.shares == 1 ? 'share' : ''}</p>
+                  {likes > 0 ? likes : ''} {likes > 1 ? 'likes' : comments == 1 ? 'likes' : ''}
+                  {comments > 0 ? ' - ' : ''} {comments > 0 ? comments : ''} {comments > 1 ? 'comments' : comments == 1 ? 'comment' : ''}
+                  {shares > 0 ? ' - ' : ''} {shares > 0 ? shares : ''} {shares > 1 ? 'shares' : shares == 1 ? 'share' : ''}</p>
               </div>
+              {/* post actions */}
               <div className="feed__actions">
                 {actions.map(action => {
                   return (

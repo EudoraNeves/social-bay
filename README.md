@@ -14,6 +14,6 @@ Material UI, React Router
 
 ### `Keywords`
 
-short-circuit conditioning, ternary conditioning, props, useReducer
+short-circuit conditioning, ternary conditioning, props, useReducer, form, sticky aside,
 
 **Hai Na Zheng @2022**
