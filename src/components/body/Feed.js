@@ -13,39 +13,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import firebase from 'firebase/compat/app';
 import { db } from '../../app/firebase';
 
-const postList = [
-  {
-    id: 1,
-    avatar: 'avatar1.jpg',
-    username: 'Jack Bean',
-    userTitle: 'HR hunter',
-    content: 'This is post 1. ',
-    likes: 123,
-    comments: 25,
-    shares: 8
-  },
-  {
-    id: 2,
-    avatar: 'avatar2.png',
-    username: 'Mario Funny',
-    userTitle: 'recruiter',
-    content: 'This is post 2. ',
-    likes: 56,
-    comments: 1,
-    shares: 1
-  },
-  {
-    id: 3,
-    avatar: 'avatar3.png',
-    username: 'Fabio Silly',
-    userTitle: 'Talent hunter',
-    content: 'This is post 3. ',
-    likes: 12,
-    comments: 0,
-    shares: 0
-  }
-]
-
 const actions = [
   {
     icon: ThumbUpAltIcon,
@@ -92,7 +59,7 @@ function reducer(state, action) {
 
 function Feed() {
   const [postDate, dispatch] = useReducer(reducer, initialPostData)
-  const [posts, setPosts] = useState(postList)
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
     console.log('aha')
@@ -110,7 +77,6 @@ function Feed() {
 
   const submitPost = (e) => {
     e.preventDefault()
-    console.log(JSON.stringify(postDate));
     //add my new post(const postData) to posts collection in db
     db.collection('posts').add({
       ...postDate,

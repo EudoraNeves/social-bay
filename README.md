@@ -14,6 +14,11 @@ Material UI, React Router
 
 ### `Keywords`
 
-short-circuit conditioning, ternary conditioning, props, useReducer, form, sticky aside,
+#### `Hooks`
+useState, useEffect, useReducer
+#### `Css`
+sticky aside, glass-frosted background(background-filter), border-block/border-inline, snap scrolling(scroll-snap-type: x mandatory/scroll-snap-align: start)
+#### `tags`
+short-circuit conditioning, ternary conditioning, props
 
 **Hai Na Zheng @2022**
