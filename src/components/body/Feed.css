@@ -42,18 +42,19 @@ input[type="submit"] {
 .feed__posts {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 3rem;
+    background-color: white;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .feed__post {
     background-color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    padding: 10px;
 }
 
 .feed__userInfo {
