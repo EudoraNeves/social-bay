@@ -13,6 +13,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import firebase from 'firebase/compat/app';
 import { db } from '../../app/firebase';
 import { storage } from '../../app/firebase';
+import { ref, uploadBytes } from 'firebase/storage'; 
+
 
 const actions = [
   {
@@ -39,7 +41,7 @@ const initialPostData = {
   visibility: 'public',
   title: '',
   content: '',
-  image: null
+  image: null, 
 }
 
 function reducer(state, action) {
@@ -62,6 +64,8 @@ function reducer(state, action) {
 function Feed() {
   const [postData, dispatch] = useReducer(reducer, initialPostData)
   const [posts, setPosts] = useState([])
+  const [imageUrl, setImageUrl] = useState('')
+  const imagesRef = ref(storage, `images`)
   /* firebase storage reference
   root folder ref:
   - const ref = ref(storage)
@@ -76,7 +80,6 @@ function Feed() {
     -> imageRef.fullPath: 'images/image.jpg'
     -> imageRef.name: 'image.jpg'
   */
-  const imagesRef = ref(storage, 'images')
 
   useEffect(() => {
     console.log('aha')
@@ -97,8 +100,19 @@ function Feed() {
     //add my new post(const postData) to posts collection in db
     db.collection('posts').add({
       ...postData,
+      image: 'Image in the firebase storage bucket: social-bay-af7f3.appspot.com',
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
+    //upload and store image
+    if(postData.image == null) return;
+    const imageRef = ref(storage, `images/${postData.image.name}`)
+    uploadBytes(imageRef, postData.image).then(()=>{
+      alert('Image uploaded!')
+    }).catch(error => {
+      console.log(error)
+    })
+    // {postData.image && console.log(URL.createObjectURL(postData.image))}
+  
     //reset post's inputs' values after submitting a post
     postData.title = ''
     postData.content = ''
