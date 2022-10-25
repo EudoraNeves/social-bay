@@ -27,6 +27,15 @@ input, textarea {
     outline: none;
 }
 
+.createPost__imgContainer {
+    width: 160px;
+}
+
+.createPost__imgContainer img {
+    aspect-ratio: auto;
+    width: 100%;
+}
+
 select, input[type="submit"] {
     background-color: white;
     width: 5rem;

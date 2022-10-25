@@ -37,7 +37,8 @@ const initialPostData = {
   shares: 0,
   visibility: 'public',
   title: '',
-  content: ''
+  content: '',
+  image: null
 }
 
 function reducer(state, action) {
@@ -85,6 +86,7 @@ function Feed() {
     //reset post's inputs' values after submitting a post
     postData.title = ''
     postData.content = ''
+    postData.image = null
   }
 
   return (
@@ -120,9 +122,17 @@ function Feed() {
           {/* attachements: photo */}
           <div className="createPost__attachments">
             <IconButton color="primary" aria-label="upload picture" component="label">
-              <input hidden accept="image/*" type="file" />
+              <input hidden accept="image/*" type="file" onChange={e => dispatch({
+                type: "inputs",
+                key: "image",
+                value: e.target.files[0]
+              })} />
               <PhotoCamera />
             </IconButton>
+            {postData.image &&
+              <div className="createPost__imgContainer">
+                <img src={URL.createObjectURL(postData.image)} alt="" />
+              </div>}
           </div>
           <Button type="submit" variant="contained">
             submit
@@ -133,7 +143,7 @@ function Feed() {
       {/* Post List */}
       <div className="feed__posts">
         <h3>Friends' stream</h3>
-        {posts.map(({ id, data: { avatar, username, userTitle, likes, comments, shares, title, content } }) => {
+        {posts.map(({ id, data: { avatar, username, userTitle, likes, comments, shares, title, content, image } }) => {
           return (
             <div key={id} className="feed__post">
               {/* post user info */}
@@ -148,6 +158,7 @@ function Feed() {
               <div className="feed__postContent">
                 <h5>{title}</h5>
                 <p>{content}</p>
+                {/* <img src={URL.createObjectURL(image)} alt="not found" className="feed__postImg" /> */}
               </div>
               {/* post stats */}
               <div className="feed__postStats">
