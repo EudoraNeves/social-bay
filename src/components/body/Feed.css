@@ -17,17 +17,28 @@
     gap: 10px;
 }
 
-.feed__createPost > form {
+.feed__createPost>form {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-input, textarea {
+input,
+textarea {
     outline: none;
 }
 
-select, input[type="submit"] {
+.createPost__imgContainer {
+    width: 100%;
+}
+
+.createPost__imgContainer img {
+    aspect-ratio: auto;
+    height: 150px;
+}
+
+select,
+input[type="submit"] {
     background-color: white;
     width: 5rem;
     border: none;
@@ -63,10 +74,16 @@ input[type="submit"] {
 }
 
 .feed__userInfo p {
-    font-size: .8rem;;
+    font-size: .8rem;
+    ;
 }
 
-.feed__postStats > p {
+.feed__postImg {
+    width: 120px;
+    aspect-ratio: auto;
+}
+
+.feed__postStats>p {
     font-size: .6rem;
     text-align: right;
 }
@@ -90,4 +107,3 @@ input[type="submit"] {
 .action:hover {
     background-color: lightgray;
 }
-
