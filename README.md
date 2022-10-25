@@ -16,7 +16,7 @@ Material UI, React Router
 #### `Hooks`
 useState, useEffect, useReducer
 #### `Css`
-sticky aside, glass-frosted background(background-filter), border-block/border-inline, snap scrolling(scroll-snap-type: x mandatory/scroll-snap-align: start)
+sticky aside, glass-frosted background(background-filter), border-block/border-inline, snap scrolling(scroll-snap-type: x mandatory/scroll-snap-align: start), aspect-ratio
 #### `tags`
 short-circuit conditioning, ternary conditioning, props
 

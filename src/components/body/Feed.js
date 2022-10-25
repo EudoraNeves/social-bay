@@ -121,6 +121,10 @@ function Feed() {
           })} placeholder='What do you want to talk about?'></textarea>
           {/* attachements: photo */}
           <div className="createPost__attachments">
+          {postData.image &&
+              <div className="createPost__imgContainer">
+                <img src={URL.createObjectURL(postData.image)} alt="" />
+              </div>}
             <IconButton color="primary" aria-label="upload picture" component="label">
               <input hidden accept="image/*" type="file" onChange={e => dispatch({
                 type: "inputs",
@@ -129,10 +133,6 @@ function Feed() {
               })} />
               <PhotoCamera />
             </IconButton>
-            {postData.image &&
-              <div className="createPost__imgContainer">
-                <img src={URL.createObjectURL(postData.image)} alt="" />
-              </div>}
           </div>
           <Button type="submit" variant="contained">
             submit
@@ -158,7 +158,7 @@ function Feed() {
               <div className="feed__postContent">
                 <h5>{title}</h5>
                 <p>{content}</p>
-                {/* <img src={URL.createObjectURL(image)} alt="not found" className="feed__postImg" /> */}
+                {/* {image && <img src={URL.createObjectURL(image)} alt="not found" className="feed__postImg" />} */}
               </div>
               {/* post stats */}
               <div className="feed__postStats">

@@ -28,12 +28,12 @@ input, textarea {
 }
 
 .createPost__imgContainer {
-    width: 160px;
+    width: 100%;
 }
 
 .createPost__imgContainer img {
     aspect-ratio: auto;
-    width: 100%;
+    height: 150px;
 }
 
 select, input[type="submit"] {
