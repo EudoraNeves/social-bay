@@ -14,6 +14,7 @@ import firebase from 'firebase/compat/app';
 import { db } from '../../app/firebase';
 import { storage } from '../../app/firebase';
 import { ref, uploadBytes } from 'firebase/storage'; 
+import { v4 } from 'uuid'
 
 
 const actions = [
@@ -105,7 +106,7 @@ function Feed() {
     })
     //upload and store image
     if(postData.image == null) return;
-    const imageRef = ref(storage, `images/${postData.image.name}`)
+    const imageRef = ref(storage, `images/${postData.image.name + v4()}`)
     uploadBytes(imageRef, postData.image).then(()=>{
       alert('Image uploaded!')
     }).catch(error => {
