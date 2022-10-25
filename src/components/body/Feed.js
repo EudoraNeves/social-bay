@@ -12,6 +12,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import DeleteIcon from '@mui/icons-material/Delete';
 import firebase from 'firebase/compat/app';
 import { db } from '../../app/firebase';
+import { storage } from '../../app/firebase';
 
 const actions = [
   {
@@ -61,6 +62,21 @@ function reducer(state, action) {
 function Feed() {
   const [postData, dispatch] = useReducer(reducer, initialPostData)
   const [posts, setPosts] = useState([])
+  /* firebase storage reference
+  root folder ref:
+  - const ref = ref(storage)
+  - const ref = imageRef.root
+  - const ref = imagesRef.parent
+
+  child folder ref: 
+  - const imagesRef = ref(storage, 'images')
+
+  specific file/image ref: 
+  - const imageRef = ref(storage, 'images/image.jpg')
+    -> imageRef.fullPath: 'images/image.jpg'
+    -> imageRef.name: 'image.jpg'
+  */
+  const imagesRef = ref(storage, 'images')
 
   useEffect(() => {
     console.log('aha')

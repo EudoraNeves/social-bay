@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth'; //auth
 import 'firebase/compat/firestore'; //db
-import { getStorage } from 'firebase/storage'; //storage
+import { getStorage, ref } from 'firebase/storage'; //storage
 
 const firebaseConfig = {
     apiKey: "AIzaSyDMnThPLjaXQLU7DXzERXSHTTVFYFDzvoA",
@@ -25,4 +25,4 @@ const auth = firebase.auth();
 //initialize cloud storage and get a reference to the service
 const storage = getStorage(firebaseApp);
 
-export {db,auth}
+export {db,auth, storage}
